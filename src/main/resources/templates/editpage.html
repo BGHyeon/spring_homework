@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=“https://www.thymeleaf.org” >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/editable.css">
+    <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
+    <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+</head>
+<body>
+   <form action="/api/savecomment" method="post" class="p-5">
+       <h1 class="title" th:text="${isEdit?'수정하기':'새 글 작성'}"></h1>
+       <input th:if="${isEdit}" type="hidden" name="_method" value="patch" />
+       <div class="form-group w-100">
+            <input type="text" style="display: none" th:value="${data.id}" name="id" value="0"/>
+        </div>
+        <div class="form-group w-100">
+            <label for="name" class="form-label">작성자 :</label>
+            <input type="text" id="name" name="makerName" th:value="${data.makerName}" th:attr="readonly=${isEdit?'true':'false'}"/>
+        </div>
+        <div class="form-group w-100">
+            <label for="password" class="form-label">비밀번호 :</label>
+            <input type="password" id="password" name="password" th:value="${data.password}" th:attr="readonly=${isEdit}"/>
+        </div>
+        <div class="form-group w-100">
+            <label for="title" class="form-label">제목 :</label>
+            <input type="text" id="title" name="title" th:value="${data.title}"/>
+        </div>
+        <div class="form-group w-100">
+            <textarea class="form-control" style="height:400px" name="contents" id="contents" th:text="${data.contents}"></textarea>
+        </div>
+        <div class="form-group w-100">
+            <input type="submit" class="btn btn-outline-primary" value="저장"/>
+        </div>
+    </form>
+</body>
+</html>

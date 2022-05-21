@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=“https://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- JavaScript Bundle with Popper -->
+    <link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
+    <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
+    <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+</head>
+<body>
+<div class="p-3 origin">
+    <input type="button" class="btn btn-outline-primary" value="새 글 쓰기" onclick="location.href='/newpage'"></input>
+    <table class="origin table">
+        <thread class="thread-dark">
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">제목</th>
+                <th scope="col">등록자</th>
+                <th scope="col">시간</th>
+            </tr>
+        </thread>
+        <tbody  th:each="comment,index:${comments}">
+            <tr th:attr="id=${comment.id}" onclick="toCommentPage(this.id)">
+                <th class="index" scope="row" th:text="${index.index+1}">1</th>
+                <th class="title" th:text="${comment.title}">test</th>
+                <th class="maker" th:text="${comment.makerName}">member</th>
+                <th class="time" th:text="${#temporals.format(comment.getCreateTime(),'yyyy-MM-dd')}">time</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
