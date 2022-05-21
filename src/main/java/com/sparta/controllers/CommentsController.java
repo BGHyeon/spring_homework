@@ -38,7 +38,9 @@ public class CommentsController {
 
     @DeleteMapping(value="/api/deletecomment")
     public String deletecomment(@RequestParam("id") String id,@RequestParam("pw") String pw) {
-        service.deleteComments(Long.parseLong(id),pw);
-        return "save";
+        if(service.deleteComments(Long.parseLong(id),pw))
+        	return "save";
+        else
+        	return "fail";
     }
 }

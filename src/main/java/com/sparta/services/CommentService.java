@@ -27,7 +27,13 @@ public class CommentService {
         repo.delete(comments);
     }
 
-    public void deleteComments(long id,String pw){
-        repo.delete(repo.findByIdAndPassword(id,pw));
+    public boolean deleteComments(long id,String pw){
+    	Comments c = repo.findByIdAndPassword(id, pw);
+    	if(c == null)
+    		return false;
+    	else {
+    		repo.delete(c);
+    		return true;
+    	}
     }
 }
