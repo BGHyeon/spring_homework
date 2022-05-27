@@ -12,22 +12,25 @@
 </head>
 <body>
 <div class="p-3 origin">
-    <input type="button" class="btn btn-outline-primary" value="새 글 쓰기" onclick="location.href='/newpage'"></input>
+    <div class="row">
+        <input type="button" class="btn btn-outline-primary" value="새 글 쓰기" onclick="location.href='/newpage'" />
+        <input type="button" class="btn btn-outline-success" value="로그아웃" onclick="location.href='/member/logout'" />
+    </div>
     <table class="origin table">
         <thread class="thread-dark">
             <tr>
-                <th scope="col">번호</th>
+                <th width="10%">번호</th>
                 <th scope="col">제목</th>
                 <th scope="col">등록자</th>
                 <th scope="col">시간</th>
             </tr>
         </thread>
-        <tbody  th:each="comment,index:${comments}">
-            <tr th:attr="id=${comment.id}" onclick="toCommentPage(this.id)">
+        <tbody  th:each="notice,index:${notices}">
+            <tr th:attr="id=${notice.id}" onclick="toNoticePage(this.id)">
                 <th class="index" scope="row" th:text="${index.index+1}">1</th>
-                <th class="title" th:text="${comment.title}">test</th>
-                <th class="maker" th:text="${comment.makerName}">member</th>
-                <th class="time" th:text="${#temporals.format(comment.getCreateTime(),'yyyy-MM-dd')}">time</th>
+                <th class="title" th:text="${notice.title}">test</th>
+                <th class="maker" th:text="${notice.member.nickName}">member</th>
+                <th class="time" th:text="${#temporals.format(notice.getCreateTime(),'yyyy-MM-dd')}">time</th>
             </tr>
         </tbody>
     </table>

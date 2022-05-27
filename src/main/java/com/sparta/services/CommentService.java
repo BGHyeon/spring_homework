@@ -1,39 +1,40 @@
 package com.sparta.services;
 
-import com.sparta.entitys.Comments;
-import com.sparta.repositories.CommentsRepo;
-
+import com.sparta.entitys.Comment;
+import com.sparta.entitys.Notice;
+import com.sparta.repositories.CommentRepo;
+import com.sparta.repositories.NoticeRepo;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
+@Getter
 public class CommentService {
     @Autowired
-    private CommentsRepo repo;
+    private CommentRepo repo;
 
-    public Optional<Comments> getCommentsById(long id) {
-        return repo.findById(id);
-    }
-    public Comments saveComments(Comments comments) {
-        return repo.save(comments);
-    }
-    public List<Comments> getComments(){
-        return repo.findAllByOrderByIdDesc();
-    }
-    public void deleteComments(Comments comments){
-        repo.delete(comments);
-    }
+    @Autowired
+    private NoticeRepo noticeRepo;
 
-    public boolean deleteComments(long id,String pw){
-    	Comments c = repo.findByIdAndPassword(id, pw);
-    	if(c == null)
-    		return false;
-    	else {
-    		repo.delete(c);
-    		return true;
-    	}
+    public void saveComment(long noticeid, String comment){
+        Notice n = noticeRepo.findById(noticeid).get();
+        Comment c = new Comment(comment);
+        c.setMember(((MemberDetail)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMember());
+        n.addComment(c);
+        noticeRepo.save(n);
+    }
+    public void deleteComment(long id){
+        Notice n = noticeRepo.findByContentsId(id);
+        Comment c = repo.findById(id).get();
+        n.removeComment(c);
+        noticeRepo.save(n);
+        repo.delete(c);
+    }
+    public void editComment(long id, String comment){
+        Comment c = repo.findById(id).get();
+        c.setComment(comment);
+        repo.save(c);
     }
 }

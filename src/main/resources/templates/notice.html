@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=“https://www.thymeleaf.org” xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
+    <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
+    <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+    <script type="text/javascript" src='/js/notice.js'></script>
+</head>
+<body>
+
+<div class="p-5">
+    <input type="hidden" id="data-id" th:attr="title=${data.id}">
+    <div th:if="${owner}" class="form-group w-100">
+        <input type="button" class="btn btn-outline-primary" value="수정" th:title="${data.id}"
+               onclick="toEditPage(this.title)"/>
+        <input type="button" class="btn btn-outline-danger" value="삭제" th:title="${data.id}"
+               onclick="deletePage(this.title)"/>
+    </div>
+    <div class="form-group w-100">
+        <label for="name" class="form-label">작성자 :</label>
+        <input type="text" id="name" name="makerName" th:value="${data.member.nickName}" readonly/>
+    </div>
+    <div class="form-group w-100">
+        <label for="title" class="form-label">제목 :</label>
+        <input type="text" id="title" name="title" th:value="${data.title}" readonly/>
+    </div>
+    <div class="form-group w-100">
+        <textarea class="form-control" style="height:400px" name="contents" id="contents" th:text="${data.contents}"
+                  readonly></textarea>
+    </div>
+    <label for="add-comment" class="form-label">뎃글 남기기</label>
+    <form class="form-group row w-100" th:action="@{/comment/{noticeid}(noticeid=${data.id})}" method="post">
+        <input class="form-control" type="text" id="add-comment" name="comment"/>
+        <button class="btn btn-outline-success">등록</button>
+    </form>
+    <table class="table">
+        <thead>
+        <th style="width: 50%">Comment</th>
+        <th style="width: 20%">Member</th>
+        <th style="width: 10%">Time</th>
+        <th style="width: 20%"></th>
+        </thead>
+        <tbody th:each="comment,index:${data.comments}">
+        <tr>
+            <td th:text="${comment.comment}">Mark</td>
+            <th th:text="${comment.member.nickName}">Otto</th>
+            <td th:text="${comment.calculateTime()+'전'}">@mdo</td>
+            <th>
+                <div th:if="${comment.member.loginId==#authentication.getName()}">
+                    <button th:id="${comment.id}" th:title="${comment.comment}" class="btn btn-outline-primary"
+                            onclick="editCommentModal(this.id,this.title)">수정
+                    </button>
+                    <button th:title="${comment.id}" class="btn btn-outline-danger" onclick="deleteComment(this.title)">
+                        삭제
+                    </button>
+                </div>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+    <div class="modal" id="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">뎃글 수정</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <input type="hidden" name="_method" value="patch"/>
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="" id="comment-id"/>
+                    <input id="comment-edit" type="text" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-submit" class="btn btn-outline-primary" value="확인" onclick="editComment()" >수정</button>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

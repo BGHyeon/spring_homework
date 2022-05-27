@@ -13,6 +13,6 @@ function getAllComments(){
     }
     });
 }
-function toCommentPage(id){
-    window.location.href ='/comment/'+id;
+function toNoticePage(id){
+    window.location.href ='/notice/'+id;
 }
