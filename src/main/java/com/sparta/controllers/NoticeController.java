@@ -1,9 +1,8 @@
 package com.sparta.controllers;
 
 import com.google.gson.Gson;
-import com.sparta.entitys.Notice;
-import com.sparta.services.MemberDetail;
-import com.sparta.services.MemberService;
+import com.sparta.entities.Notice;
+import com.sparta.entities.MemberDetail;
 import com.sparta.services.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

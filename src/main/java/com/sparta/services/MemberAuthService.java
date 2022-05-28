@@ -1,6 +1,7 @@
 package com.sparta.services;
 
-import com.sparta.entitys.Member;
+import com.sparta.entities.Member;
+import com.sparta.entities.MemberDetail;
 import com.sparta.repositories.MemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

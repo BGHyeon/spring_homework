@@ -1,6 +1,6 @@
 package com.sparta.repositories;
 
-import com.sparta.entitys.Member;
+import com.sparta.entities.Member;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 

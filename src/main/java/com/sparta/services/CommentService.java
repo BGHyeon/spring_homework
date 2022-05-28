@@ -1,7 +1,8 @@
 package com.sparta.services;
 
-import com.sparta.entitys.Comment;
-import com.sparta.entitys.Notice;
+import com.sparta.entities.Comment;
+import com.sparta.entities.MemberDetail;
+import com.sparta.entities.Notice;
 import com.sparta.repositories.CommentRepo;
 import com.sparta.repositories.NoticeRepo;
 import lombok.Getter;

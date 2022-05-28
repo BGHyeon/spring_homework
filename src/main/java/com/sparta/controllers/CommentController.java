@@ -1,13 +1,9 @@
 package com.sparta.controllers;
 
 import com.sparta.ScriptUtil;
-import com.sparta.entitys.Comment;
-import com.sparta.repositories.CommentRepo;
-import com.sparta.repositories.NoticeRepo;
 import com.sparta.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;

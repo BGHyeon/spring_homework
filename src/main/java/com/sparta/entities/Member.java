@@ -1,4 +1,4 @@
-package com.sparta.entitys;
+package com.sparta.entities;
 
 import lombok.*;
 

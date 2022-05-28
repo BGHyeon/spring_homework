@@ -1,9 +1,10 @@
 package com.sparta.services;
 
 import com.google.gson.JsonObject;
-import com.sparta.entitys.Comment;
-import com.sparta.entitys.Member;
-import com.sparta.entitys.Notice;
+import com.sparta.entities.Comment;
+import com.sparta.entities.Member;
+import com.sparta.entities.MemberDetail;
+import com.sparta.entities.Notice;
 import com.sparta.repositories.NoticeRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;

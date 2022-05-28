@@ -1,17 +1,12 @@
 package com.sparta;
 
-import com.sparta.entitys.Member;
+import com.sparta.entities.Member;
 import com.sparta.repositories.MemberMemoryRepo;
-import com.sparta.services.MemberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 
 @SpringBootTest
 class SpringHomeworkApplicationTests {

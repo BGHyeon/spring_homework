@@ -1,6 +1,6 @@
 package com.sparta.services;
 
-import com.sparta.entitys.Member;
+import com.sparta.entities.Member;
 import com.sparta.repositories.MemberRepo;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
