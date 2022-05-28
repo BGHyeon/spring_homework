@@ -1,4 +1,4 @@
-import * as Code from './FinalValue.js';
+
 let isCheck = false;
 function checkPw(){
     let pw = $('#login-pw');
@@ -31,12 +31,13 @@ function idCheck(){
         url:'/member/'+id.val(),
         method:'POST',
         success:(response)=>{
-            if(response['ret'] == Code.SUCCESS) {
+            let res = JSON.parse(response)
+            if(res['ret'] == 0) {
                 isCheck = true;
             }else {
                 isCheck = false;
             }
-            alert(response['msg'])
+            alert(res['msg'])
             checkPw();
         }
     })

@@ -49,7 +49,7 @@ public class MemberController {
             o.addProperty("ret", FinalValue.ILLEGAL_POLICY_ERROR);
             o.addProperty("msg","이미 사용중인 ID 입니다.");
         }
-            return "uncheck";
+        return ret.toJson(o);
     }
 
 }
