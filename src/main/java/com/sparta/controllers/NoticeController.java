@@ -1,5 +1,6 @@
 package com.sparta.controllers;
 
+import com.google.gson.Gson;
 import com.sparta.entitys.Notice;
 import com.sparta.services.MemberDetail;
 import com.sparta.services.MemberService;
@@ -45,6 +46,9 @@ public class NoticeController {
         }
         return "save";
     }
-
+    @PostMapping(value = "/like/{id}")
+    public String toggleLike(@PathVariable("id") String id, @AuthenticationPrincipal MemberDetail detail){
+        return new Gson().toJson(service.toggleLike(Long.parseLong(id), detail.getMember()));
+    }
 
 }

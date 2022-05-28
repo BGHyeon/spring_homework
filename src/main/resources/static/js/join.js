@@ -1,5 +1,6 @@
+import * as Code from './FinalValue.js';
 let isCheck = false;
-checkPw = () =>{
+function checkPw(){
     let pw = $('#login-pw');
     let pwCf = $('#login-pw-confirm');
     if(pw.val().length > 3 && pw.val().length > 3) {
@@ -10,33 +11,32 @@ checkPw = () =>{
         }
     }
 }
-getParameter = (name) =>{
+function getParameter(name){
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-submitHidden = (hidden) => {
+function submitHidden (hidden){
     let submit = $('#submit');
     if(hidden)
         submit.css("display","none");
     else
         submit.css("display","");
 }
-idCheck=()=>{
+function idCheck(){
     let id = $('#login-id');
 
     $.ajax({
         url:'/member/'+id.val(),
         method:'POST',
         success:(response)=>{
-            if(response == 'check') {
-                alert('사용 가능한 ID 입니다.');
+            if(response['ret'] == Code.SUCCESS) {
                 isCheck = true;
             }else {
-                alert('이미 사용중인 ID 입니다.');
                 isCheck = false;
             }
+            alert(response['msg'])
             checkPw();
         }
     })

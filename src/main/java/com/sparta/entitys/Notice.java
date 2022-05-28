@@ -5,7 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -28,11 +30,33 @@ public class Notice extends Timestamp {
     @Column
     private String title;
 
+    @OneToMany(targetEntity = Member.class,fetch = FetchType.LAZY)
+    private List<Member> likedMembers = new ArrayList<>();
+
     @OneToMany(targetEntity = Comment.class,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
-
+    public List<Comment> getReverseComments(){
+        List<Comment> copy = comments;
+        Collections.reverse(copy);
+        return copy;
+    }
     public void addComment(Comment comment){
         this.comments.add(comment);
     }
     public void removeComment(Comment comment){this.comments.remove(comment);}
+    public int getLikeCount(){return this.likedMembers.size();}
+    public boolean toggleLike(Member m){
+        boolean ret = false;
+        boolean isContain = this.likedMembers.stream().filter(e->e.getId()==m.getId()).count() != 0;
+        if(isContain) {
+            likedMembers = likedMembers.stream().filter(e->e.getId() != m.getId()).collect(Collectors.toList());
+        }else {
+            this.likedMembers.add(m);
+            ret = true;
+        }
+        return ret;
+    }
+    public boolean isContainMember(Member m){
+        return this.likedMembers.contains(m);
+    }
 }

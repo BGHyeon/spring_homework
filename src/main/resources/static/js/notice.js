@@ -48,6 +48,25 @@ function deleteComment(id){
 		}
 	})
 }
+function toggleLike(id){
+	$.ajax({
+		url:'/like/'+id,
+		method:'post',
+		success:(response)=>{
+			if(response.includes('로그인')){
+				alert("로그인이 필요한 서비스입니다.")
+				window.location.href="/login";
+			}
+			let res = JSON.parse(response);
+			let like = $('#like-count');
+			if(res['islike'])
+				like.attr('class','btn btn-danger');
+			else
+				like.attr('class','btn btn-outline-danger');
+			like.text('♥ '+res['count']);
+		}
+	})
+}
 // function deletePage() {
 // 	let id = $('#data-id').attr('title');
 // 	$.ajax({

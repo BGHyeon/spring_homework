@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.net.URLEncoder;
 
@@ -21,6 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private MemberAuthService authService;
 
+    @Autowired
+    private AuthFailHandler failhandler;
+    @Autowired
+    private CustomAccessDenied denieHander;
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/h2-console/**");
@@ -32,19 +37,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
                 .antMatchers("/member/**").permitAll()
+                .antMatchers("/notice/**").permitAll()
+                .antMatchers("/main").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/js/**").permitAll()
+                .mvcMatchers("/v2/**",
+                        "/configuration/**",
+                        "/swagger*/**",
+                        "/webjars/**",
+                        "/swagger-resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/member/login")
                 .defaultSuccessUrl("/main",true)
-                .failureUrl("/login?msg="+ URLEncoder.encode("사용자 정보가 없습니다","UTF-8")).permitAll()
+                .failureHandler(failhandler)
+                .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/member/logout").permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/login?msg="+ URLEncoder.encode("로그인이 필요합니다.","UTF-8"));
+                .exceptionHandling().authenticationEntryPoint(denieHander);
     }
 
     @Override
@@ -56,5 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public BCryptPasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.sparta.services;
 
+import com.google.gson.JsonObject;
 import com.sparta.entitys.Comment;
 import com.sparta.entitys.Member;
 import com.sparta.entitys.Notice;
@@ -38,5 +39,15 @@ public class NoticeService {
         Notice notice = repo.findById(id).get();
         notice.addComment(comment);
         return repo.save(notice);
+    }
+
+    public JsonObject toggleLike(long id, Member member){
+        JsonObject o = new JsonObject();
+        Notice n = repo.findById(id).get();
+        o.addProperty("islike",n.toggleLike(member));
+        repo.save(n);
+        o.addProperty("count",n.getLikeCount());
+
+        return o;
     }
 }

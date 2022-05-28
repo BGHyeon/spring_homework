@@ -1,8 +1,6 @@
 package com.sparta.entitys;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -28,6 +26,6 @@ public class Member extends Timestamp {
     private String loginPw;
 
     public boolean build(){
-        return (nickName.matches("^[a-zA-Z0-9]{3,}$") && !loginPw.contains(nickName) && loginPw.length() > 3);
+        return (loginId.matches("^[a-zA-Z0-9]{3,}$") && !loginPw.contains(nickName) && loginPw.length() > 3);
     }
 }

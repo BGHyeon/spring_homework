@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th=“https://www.thymeleaf.org”>
+<html lang="en" xmlns:th=“https://www.thymeleaf.org” xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -14,7 +14,14 @@
 <div class="p-3 origin">
     <div class="row">
         <input type="button" class="btn btn-outline-primary" value="새 글 쓰기" onclick="location.href='/newpage'" />
-        <input type="button" class="btn btn-outline-success" value="로그아웃" onclick="location.href='/member/logout'" />
+        <div sec:authorize="isAuthenticated()">
+            <input type="button" class="btn btn-outline-success" value="로그아웃"
+                   onclick="location.href='/member/logout'" />
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <input type="button" class="btn btn-outline-success" value="로그인"
+                   onclick="location.href='/login'" />
+        </div>
     </div>
     <table class="origin table">
         <thread class="thread-dark">

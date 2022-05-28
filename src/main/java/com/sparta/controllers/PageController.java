@@ -9,11 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
 @Controller
 public class PageController {
+    @GetMapping("/")
+    public RedirectView redirectMain(){
+        return new RedirectView("/main");
+    }
     @Autowired
     private NoticeService service;
     @GetMapping(value = "/login")
@@ -29,6 +34,7 @@ public class PageController {
         model.addAttribute("notices",service.getNotice());
         return "main";
     }
+
     @GetMapping(value="/newpage")
     public String toEdit(Model model){
         model.addAttribute("isEdit",false);
@@ -40,7 +46,14 @@ public class PageController {
     public String commentInfo(@PathVariable("id") String id,@AuthenticationPrincipal MemberDetail detail, Model model){
         Notice notice = service.getNoticeById(Long.parseLong(id)).get();
         model.addAttribute("data",notice);
-        model.addAttribute("owner",notice.getMember().getId() == detail.getMember().getId());
+
+        if(detail != null) {
+            model.addAttribute("owner", notice.getMember().getId() == detail.getMember().getId());
+            model.addAttribute("islike",notice.isContainMember(detail.getMember()));
+        }else {
+            model.addAttribute("owner", false);
+            model.addAttribute("islike",false);
+        }
         return "notice";
     }
     @GetMapping(value="/editpage/{id}")

@@ -28,4 +28,5 @@ public class MemberService {
         return repo.countByLoginId(id) == 0;
     }
 
+
 }

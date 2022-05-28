@@ -34,6 +34,8 @@
     <form class="form-group row w-100" th:action="@{/comment/{noticeid}(noticeid=${data.id})}" method="post">
         <input class="form-control" type="text" id="add-comment" name="comment"/>
         <button class="btn btn-outline-success">등록</button>
+        <button th:class="${islike?'btn btn-danger':'btn btn-outline-danger'}" id="like-count" th:title="${data.id}" th:text="${'♥︎ '+data.getLikeCount()}" type="button" onclick="toggleLike(this.title)">
+        </button>
     </form>
     <table class="table">
         <thead>
@@ -42,7 +44,7 @@
         <th style="width: 10%">Time</th>
         <th style="width: 20%"></th>
         </thead>
-        <tbody th:each="comment,index:${data.comments}">
+        <tbody th:each="i : ${#numbers.sequence(data.comments.size()-1,0,-1)}" th:with="comment=${data.comments[i]}">
         <tr>
             <td th:text="${comment.comment}">Mark</td>
             <th th:text="${comment.member.nickName}">Otto</th>
