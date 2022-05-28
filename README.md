@@ -1,11 +1,14 @@
 # spring_homework
+
 ## 배포 Server URL : http://idontcare.shop
 ## 배포 Server Swagger URL : http://idontcare.shop/swagger-ui/
-### com.sparta.entitys
+
+### com.sparta.entities
 * Notice : 게시글
 * Member : 회원
 * Comment : 댓글
 * Timestamp : 생성, 수정시간 Column 추가용 abstract class
+* MemberDetail : 로그인 토큰
 
 ### com.sparta.repositories
 * NoticeRepo : 게시글 Repository
@@ -13,13 +16,11 @@
 * CommentRepo : 댓글 Repository
 * MemberMemoryRepo : 테스트용 회원 Memory Repository
 
-
 ### com.sparta.services
 * CommentService : 댓글 Service
 * MemberService : 회원 Service
 * NoticeService : 게시글 Service
 * MemberAuthService : 로그인 토큰 확인용 Service
-* MemberDetail : 로그인 토큰
 
 ### com.sparta.controllers
 * CommentController : 댓글 관련 REST API (코멘트 생성, 수정, 삭제)
