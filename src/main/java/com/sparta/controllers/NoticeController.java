@@ -29,9 +29,9 @@ public class NoticeController {
         return new RedirectView("/main");
     }
 
-    @PatchMapping(value="/notice")
-    public RedirectView saveNotice(Notice Notice){
-        service.saveNotice(Notice);
+    @PostMapping(value="/notice/{noticeId}")
+    public RedirectView saveNotice(@PathVariable("noticeId") String noticeId,Notice Notice){
+        service.patchNotice(Notice);
         return new RedirectView("/main");
     }
 

@@ -57,6 +57,6 @@ public class Notice extends Timestamp {
         return ret;
     }
     public boolean isContainMember(Member m){
-        return this.likedMembers.contains(m);
+        return this.likedMembers.stream().filter(e->e.getId() == m.getId()).count() == 1;
     }
 }

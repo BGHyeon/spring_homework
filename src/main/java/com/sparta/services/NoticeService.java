@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +24,15 @@ public class NoticeService {
         return repo.findById(id);
     }
     public Notice saveNotice(Notice notice) {
-
         return repo.save(notice);
+    }
+    public Notice patchNotice(Notice notice){
+        Notice origin = repo.findById(notice.getId()).get();
+        if(origin.getCreateTime() == null)
+            origin.setCreateTime(LocalDateTime.now());
+        origin.setComments(notice.getComments());
+        origin.setTitle(notice.getTitle());
+        return repo.save(origin);
     }
     public List<Notice> getNotice(){
         return repo.findAllByOrderByIdDesc();
