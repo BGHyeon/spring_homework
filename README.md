@@ -1,4 +1,6 @@
 # spring_homework
+## 배포 Server URL : http://idontcare.shop
+## 배포 Server Swagger URL : http://idontcare.shop/swagger-ui/
 ### com.sparta.entitys
 * Notice : 게시글
 * Member : 회원
