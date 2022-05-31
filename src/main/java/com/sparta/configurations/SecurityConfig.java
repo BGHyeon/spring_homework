@@ -1,5 +1,6 @@
 package com.sparta.configurations;
 
+import com.sparta.jwtsecurity.CustomLogout;
 import com.sparta.jwtsecurity.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //    private final AuthFailHandler failhandler;
     private final CustomAccessDenied denieHander;
     private final JwtAuthFilter filter;
+
+    private final CustomLogout logoutHnadler;
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/h2-console/**");
@@ -55,9 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //                .failureHandler(failhandler)
 //                .permitAll()
 //                .and()
-//                .logout()
-//                .logoutUrl("/member/logout").permitAll()
-//                .and()
+                .logout()
+                .logoutUrl("/member/logout")
+                .logoutSuccessHandler(logoutHnadler).permitAll()
+                .and()
                 .exceptionHandling().authenticationEntryPoint(denieHander)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

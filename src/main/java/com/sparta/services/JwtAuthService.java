@@ -6,10 +6,10 @@ import com.sparta.entities.Member;
 import com.sparta.entities.MemberDetail;
 import com.sparta.repositories.MemberRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class JwtAuthService {
             return "fail";
         }
         MemberDetail detail = new MemberDetail(m);
-        String accessToken = provider.generateToken(detail);
+        String accessToken = provider.generateToken(detail.getMember());
         String refreshToken = provider.generateRefreshToken();
         m.setRefreshToken(refreshToken);
         repo.save(m);

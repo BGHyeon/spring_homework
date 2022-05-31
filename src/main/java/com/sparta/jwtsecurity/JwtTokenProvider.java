@@ -38,12 +38,12 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
                 .compact();
     }
-    public String generateToken(MemberDetail userDetails) {
+    public String generateToken(Member m) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("loginId",userDetails.getMember().getLoginId());
-        claims.put("loginPw",userDetails.getMember().getLoginPw());
-        claims.put("id",userDetails.getMember().getId());
-        return doGenerateToken(claims, userDetails.getUsername());
+        claims.put("loginId",m.getLoginId());
+        claims.put("loginPw",m.getLoginPw());
+        claims.put("id",m.getId());
+        return doGenerateToken(claims, "id");
     }
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()

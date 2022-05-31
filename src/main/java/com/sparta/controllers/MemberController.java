@@ -24,16 +24,11 @@ import java.net.URLEncoder;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private MemberService service;
+    private final MemberService service;
 
-    private JwtAuthService jwtservice;
+    private final JwtAuthService jwtservice;
 
 
-    @Autowired
-    public MemberController(MemberService service,JwtAuthService jwtservice){
-        this.service = service;
-        this.jwtservice = jwtservice;
-    }
     @PostMapping(value = "/member/login")
     public String jwtLogin(String username, String password, HttpServletResponse response){
         try {

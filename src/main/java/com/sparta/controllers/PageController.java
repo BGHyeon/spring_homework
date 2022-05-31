@@ -21,13 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 public class PageController {
 
     private final NoticeService service;
-    private final CookieService cookie;
+//    private final CookieService cookie;
 
-    @GetMapping("/member/logout")
-    public RedirectView logout(HttpServletResponse response){
-        cookie.resetToken(response);
-        return new RedirectView("/main");
-    }
+//    @GetMapping("/member/logout")
+//    public RedirectView logout(HttpServletResponse response){
+//        cookie.resetToken(response);
+//        return new RedirectView("/main");
+//    }
     @GetMapping("/")
     public RedirectView redirectMain(){
         return new RedirectView("/main");

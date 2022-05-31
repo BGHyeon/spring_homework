@@ -30,7 +30,7 @@ public class NoticeService {
         Notice origin = repo.findById(notice.getId()).get();
         if(origin.getCreateTime() == null)
             origin.setCreateTime(LocalDateTime.now());
-        origin.setComments(notice.getComments());
+        origin.setContents(notice.getContents());
         origin.setTitle(notice.getTitle());
         return repo.save(origin);
     }

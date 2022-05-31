@@ -48,7 +48,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     // Refresh 토큰 만료시 다시 발급
                     if (!provider.validateToken(refresh)) {
                         String newRefreshToken = provider.generateRefreshToken();
-                        String newAccessToken = provider.generateToken(detail);
+                        String newAccessToken = provider.generateToken(detail.getMember());
                         provider.setRefreshToken(detail.getMember(),newRefreshToken);
                         response.addCookie(cookie.createCookie(FinalValue.JWT_TOKEN_COOKIE_KEY,newAccessToken));
                         response.addCookie(cookie.createCookie(FinalValue.JWT_REFRESH_TOKEN,newRefreshToken));
