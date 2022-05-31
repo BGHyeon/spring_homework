@@ -2,7 +2,9 @@ package com.sparta.controllers;
 
 import com.sparta.entities.Notice;
 import com.sparta.entities.MemberDetail;
+import com.sparta.services.CookieService;
 import com.sparta.services.NoticeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -11,14 +13,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
+@RequiredArgsConstructor
 public class PageController {
+
+    private final NoticeService service;
+    private final CookieService cookie;
+
+    @GetMapping("/member/logout")
+    public RedirectView logout(HttpServletResponse response){
+        cookie.resetToken(response);
+        return new RedirectView("/main");
+    }
     @GetMapping("/")
     public RedirectView redirectMain(){
         return new RedirectView("/main");
     }
-    @Autowired
-    private NoticeService service;
+
     @GetMapping(value = "/login")
     public String toLogin(){
         return "index";

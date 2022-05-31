@@ -1,5 +1,6 @@
 package com.sparta.jwtsecurity;
 
+import com.sparta.entities.Member;
 import com.sparta.entities.MemberDetail;
 import com.sparta.repositories.MemberRepo;
 import io.jsonwebtoken.Claims;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.crypto.Data;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,11 +23,20 @@ import java.util.Map;
 @Component
 public class JwtTokenProvider {
     private final String JWT_SECRET = Base64.getEncoder().encodeToString("Secret Key".getBytes());
-    private final long ValidTime = 360000L;
+    private final long ValidTime = 1000L * 60 * 60;
     private MemberRepo repo;
     @Autowired
     public JwtTokenProvider(MemberRepo repo){
         this.repo = repo;
+    }
+
+    public String generateRefreshToken(){
+        Date now = new Date();
+        return Jwts.builder()
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime()+600000L))
+                .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
+                .compact();
     }
     public String generateToken(MemberDetail userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -45,11 +56,16 @@ public class JwtTokenProvider {
                 .compact();
     }
     // Principal 반환
-    public Authentication getAuthentication(String token) {
-        MemberDetail userDetails = new MemberDetail(repo.findById(Long.parseLong(this.getUserPk(token))).get());
+    public Authentication getAuthentication(MemberDetail userDetails) {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
-
+    public MemberDetail getMemberDetail(String token,String refreshToken){
+        return new MemberDetail(repo.findByIdAndToken(Long.parseLong(this.getUserPk(token)),refreshToken));
+    }
+    public void setRefreshToken(Member m,String refreshToken){
+        m.setRefreshToken(refreshToken);
+        repo.save(m);
+    }
     // 토큰에서 회원 정보 추출
     public String getUserPk(String token) {
         return Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody().get("id").toString();

@@ -1,9 +1,6 @@
 package com.sparta.configurations;
 
 import com.sparta.jwtsecurity.JwtAuthFilter;
-import com.sparta.jwtsecurity.JwtTokenProvider;
-import com.sparta.services.CookieService;
-import com.sparta.services.MemberAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,15 +19,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
-    private final MemberAuthService authService;
+//    private final MemberAuthService authService;
 
-    private final AuthFailHandler failhandler;
+//    private final AuthFailHandler failhandler;
     private final CustomAccessDenied denieHander;
-
-    private final CookieService cookie;
-
-    private final JwtTokenProvider provider;
-
     private final JwtAuthFilter filter;
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -63,9 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //                .failureHandler(failhandler)
 //                .permitAll()
 //                .and()
-                .logout()
-                .logoutUrl("/member/logout").permitAll()
-                .and()
+//                .logout()
+//                .logoutUrl("/member/logout").permitAll()
+//                .and()
                 .exceptionHandling().authenticationEntryPoint(denieHander)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

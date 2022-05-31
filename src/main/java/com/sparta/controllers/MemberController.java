@@ -28,27 +28,22 @@ public class MemberController {
 
     private JwtAuthService jwtservice;
 
-    private CookieService cookie;
 
     @Autowired
-    public MemberController(MemberService service,JwtAuthService jwtservice,CookieService cookie){
+    public MemberController(MemberService service,JwtAuthService jwtservice){
         this.service = service;
         this.jwtservice = jwtservice;
-        this.cookie = cookie;
     }
     @PostMapping(value = "/member/login")
     public String jwtLogin(String username, String password, HttpServletResponse response){
         try {
-            String token = jwtservice.login(username,password);
-            if(token!=null) {
-                response.addCookie(cookie.createCookie(FinalValue.JWT_TOKEN_COOKIE_KEY,token));
-                return "success";
-            }
+            return jwtservice.login(username,password,response);
         } catch (Exception e) {
             e.printStackTrace();
+            return "fail";
         }
-        return "fail";
     }
+
    @PostMapping(value = "/member")
     public Object joinMember(Member member) throws UnsupportedEncodingException {
        String url = "/login";

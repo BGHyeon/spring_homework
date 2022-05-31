@@ -19,6 +19,9 @@ public class Member extends Timestamp {
     @Column
     private String name;
 
+    @Column
+    private String refreshToken;
+
     @Column(unique = true)
     private String loginId;
 
