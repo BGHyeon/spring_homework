@@ -40,3 +40,6 @@
 * JwTAuthFilter : Client의 모든 요청에 대해 Cookie에 있는 JwtToken을 조회하여 인증정보를 생성하는 Filter
 * JwtTokenProvicer : Jwt Token 발급, 해독, 유효성 검사등의 기능을 가진 객체
 
+### 로그인 요청 -> 계정 정보 확인및 Jwt, Refresh 토큰 발급 -> Refresh Token Database 저장 -> Jwt, Refresh토큰 Cookie 저장
+### 클라이언트 요청 -> Cookie에서 Jwt, Refresh 토큰 조회 -> Jwt 토큰 만료상태 확인 및 해독 -> Jwt 토큰 해독값과 Refresh 토큰값으로 계정정보 조회 -> Refresh 토큰 만료 확인 -> 만료되었으면 Jwt, Refresh토큰 재발급 및 DB, Cookie 저장
+
