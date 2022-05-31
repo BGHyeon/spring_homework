@@ -21,6 +21,8 @@
 * MemberService : 회원 Service
 * NoticeService : 게시글 Service
 * MemberAuthService : 로그인 토큰 확인용 Service
+* JwTAuthService : 로그인시 JWT Token을 발급해주는 Service
+* CookieService : Cookie 생성, 조회를 담당하는 Service(JWT Token 조회용)
 
 ### com.sparta.controllers
 * CommentController : 댓글 관련 REST API (코멘트 생성, 수정, 삭제)
@@ -33,4 +35,8 @@
 * CustomAccessDenied : 로그인 없음 Handler
 * SecurityConfig : Spring Security 설정 정보
 * SwaggerConfig : Swagger 설정 정보
+
+### com.sparta.jwtsecurity
+* JwTAuthFilter : Client의 모든 요청에 대해 Cookie에 있는 JwtToken을 조회하여 인증정보를 생성하는 Filter
+* JwtTokenProvicer : Jwt Token 발급, 해독, 유효성 검사등의 기능을 가진 객체
 

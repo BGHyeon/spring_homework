@@ -40,7 +40,6 @@ public class MemberController {
     public String jwtLogin(String username, String password, HttpServletResponse response){
         try {
             String token = jwtservice.login(username,password);
-            System.out.println(token != null);
             if(token!=null) {
                 response.addCookie(cookie.createCookie(FinalValue.JWT_TOKEN_COOKIE_KEY,token));
                 return "success";

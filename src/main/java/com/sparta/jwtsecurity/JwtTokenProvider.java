@@ -1,4 +1,4 @@
-package com.sparta.configurations;
+package com.sparta.jwtsecurity;
 
 import com.sparta.entities.MemberDetail;
 import com.sparta.repositories.MemberRepo;

@@ -1,13 +1,10 @@
 package com.sparta.services;
 
-import com.sparta.configurations.JwtTokenProvider;
+import com.sparta.jwtsecurity.JwtTokenProvider;
 import com.sparta.entities.Member;
 import com.sparta.entities.MemberDetail;
 import com.sparta.repositories.MemberRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
