@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sparta.FinalValue;
 import com.sparta.entities.Member;
+import com.sparta.services.CookieService;
+import com.sparta.services.JwtAuthService;
 import com.sparta.services.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,16 +15,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 
 @RestController
+@RequiredArgsConstructor
 public class MemberController {
 
-    @Autowired
     private MemberService service;
 
+    private JwtAuthService jwtservice;
+
+    private CookieService cookie;
+
+    @Autowired
+    public MemberController(MemberService service,JwtAuthService jwtservice,CookieService cookie){
+        this.service = service;
+        this.jwtservice = jwtservice;
+        this.cookie = cookie;
+    }
+    @PostMapping(value = "/member/login")
+    public String jwtLogin(String username, String password, HttpServletResponse response){
+        try {
+            String token = jwtservice.login(username,password);
+            System.out.println(token != null);
+            if(token!=null) {
+                response.addCookie(cookie.createCookie(FinalValue.JWT_TOKEN_COOKIE_KEY,token));
+                return "success";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "fail";
+    }
    @PostMapping(value = "/member")
     public Object joinMember(Member member) throws UnsupportedEncodingException {
        String url = "/login";

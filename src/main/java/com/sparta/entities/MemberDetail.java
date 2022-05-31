@@ -20,7 +20,6 @@ public class MemberDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
-        auths.add(new SimpleGrantedAuthority(Long.toString(member.getId())));
         return auths;
     }
 

@@ -10,25 +10,27 @@
 </head>
 
 <body>
-    <div class="container row">
-        <div class="col-md-6" style="float: none;margin: 0 auto">
-            <div class="card p-5">
-                <form action="/member/login" method="post">
-                    <div class="form-group">
-                        <label for="login-id" class="form-label">ID :</label>
-                        <input id="login-id" class="form-control" type="text" name="username">
-                    </div>
-                    <div class="form-group">
-                        <label for="login-pw" class="form-label">PW :</label>
-                        <input id="login-pw" class="form-control" type="password" name="password">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-outline-primary m-3" value="로그인">
-                        <input type="button" class="btn btn-outline-danger m-3" value="회원가입" onclick="window.location.href='/member/join'">
-                    </div>
-                </form>
+<div class="container row">
+    <div class="col-md-6" style="float: none;margin: 0 auto">
+        <div class="card p-5">
+            <!--                <form action="/member/login" method="post">-->
+            <div class="form-group">
+                <label for="login-id" class="form-label">ID :</label>
+                <!--                        <input id="login-id" class="form-control" type="text" name="username">-->
+                <input id="login-id" class="form-control" type="text">
             </div>
+            <div class="form-group">
+                <label for="login-pw" class="form-label">PW :</label>
+                <!--                        <input id="login-pw" class="form-control" type="password" name="password">-->
+                <input id="login-pw" class="form-control" type="password">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-outline-primary m-3" value="로그인" onclick="login()">
+                <input type="button" class="btn btn-outline-danger m-3" value="회원가입" onclick="window.location.href='/member/join'">
+            </div>
+            <!--                </form>-->
         </div>
     </div>
+</div>
 </body>
 </html>
