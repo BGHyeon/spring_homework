@@ -8,7 +8,7 @@
     <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
 </head>
 <body>
-   <form th:action="${'/notice/'+data.id}" method="POST" class="p-5">
+   <form th:action="${isEdit?'/notice/'+data.id:'/notice'}" method="POST" class="p-5">
        <input th:if="${isEdit}" type="hidden" name="_method" value="PUT" />
        <div class=" w-100">
             <input type="text" style="display: none" th:value="${data.id}" name="id" value="0"/>

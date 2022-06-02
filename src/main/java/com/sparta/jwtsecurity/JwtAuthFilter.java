@@ -41,7 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if (provider.validateToken(jwtToken)) {
                 // 토큰값과 refresh 토큰으로 유저 정보를 받아옴
                 MemberDetail detail = provider.getMemberDetail(jwtToken,refresh);
-                if(detail != null) {
+                if(detail.getMember() != null) {
                     Authentication authentication = provider.getAuthentication(detail);
                     // SecurityContext 에 Authentication 객체를 저장
                     SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -33,8 +33,7 @@ public class CookieService {
             if(cookie.getName().equals(cookieName))
                 return cookie;
         }
-        return null;
-    }
+        return null;}
     public void resetToken(HttpServletResponse response){
         Cookie c = deleteCookie(FinalValue.JWT_TOKEN_COOKIE_KEY);
         response.addCookie(c);

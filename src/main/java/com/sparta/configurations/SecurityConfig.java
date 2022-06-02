@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Configuration
@@ -34,6 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        RequestMatcher matcher = new RequestMatcher() {
+            @Override
+            public boolean matches(HttpServletRequest request) {
+                return false;
+            }
+        };
         http.csrf().disable();
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class); // JWT Token 검사로직
         http

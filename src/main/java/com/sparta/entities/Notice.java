@@ -30,7 +30,7 @@ public class Notice extends Timestamp {
     @Column
     private String title;
 
-    @OneToMany(targetEntity = Member.class,fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Member.class,fetch = FetchType.LAZY)
     private List<Member> likedMembers = new ArrayList<>();
 
     @OneToMany(targetEntity = Comment.class,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
