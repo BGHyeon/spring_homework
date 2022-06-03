@@ -46,10 +46,10 @@
 | ID중복확인     | POST   | /member/{id}        | loginId                       | resultmsg    |
 | 로그인        | POST   | /member/login       | username,password             | redirectView |
 | 좋아요 toggle | POST   | /like/{noticeId}    | noticeId                      | redirectView |
-| 개시물 목록     | GET    | /notice             |                               | List<Notice> |
-| 개시물 생성     | POST   | /notice             | title,contents                | redirectView |
-| 개시물 수정     | POST   | /notice/{noticeId}  | noticeId,title,contents       | redirectView |
-| 개시물 삭제     | DELETE | /notice/{noticeId}  | noticeId       | resultmsg    |
+| 게시물 목록     | GET    | /notice             |                               | List<Notice> |
+| 게시물 생성     | POST   | /notice             | title,contents                | redirectView |
+| 게시물 수정     | POST   | /notice/{noticeId}  | noticeId,title,contents       | redirectView |
+| 게시물 삭제     | DELETE | /notice/{noticeId}  | noticeId       | resultmsg    |
 
 
 
